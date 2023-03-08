@@ -8,6 +8,8 @@ public class LabReportSystemApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(LabReportSystemApplication.class, args);
+		System.out.println("selam");
+		
 	}
 
 }
