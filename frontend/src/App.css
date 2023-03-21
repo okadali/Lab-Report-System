@@ -1,0 +1,20 @@
+
+.reportInputs {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    width: max-content;
+}
+
+.reportInputs button,input,textarea {
+    display: block;
+    margin: 5px;
+    resize: none;
+    width: 170px;
+}
+.reportInputs textarea {
+    height: 135px;
+}
+
+
+

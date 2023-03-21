@@ -25,7 +25,7 @@ public class ReportService {
         return reportRepository.findAll();
     }
 
-    public void createNewReport(ReportCreateRequest reportCreateRequest) {
+    public Report createNewReport(ReportCreateRequest reportCreateRequest) {
         Optional<Laboratorian> laboratorian = laboratorianRepository.findById(reportCreateRequest.getLaboratorianId());
         if(!laboratorian.isPresent()) {
             throw new IllegalStateException("laboratorian id "+reportCreateRequest.getLaboratorianId()+" does not exists");
@@ -45,7 +45,7 @@ public class ReportService {
         toSave.setDiagnosisDetail(reportCreateRequest.getDiagnosisDetail());
         toSave.setDob(reportCreateRequest.getDob());
         toSave.setLaboratorian(laboratorian.get());
-        reportRepository.save(toSave);
+        return reportRepository.save(toSave);
     }
 
     public void deleteReport(Long reportId) {

@@ -1,12 +1,7 @@
 package com.labreportsystem.demo.report;
 
-import com.labreportsystem.demo.laboratorian.Laboratorian;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+
 import lombok.Data;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
 

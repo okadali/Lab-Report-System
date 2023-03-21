@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping(path = "/reports")
 public class ReportController {
@@ -18,7 +19,9 @@ public class ReportController {
     public List<Report> getReports() {return reportService.getReports();}
 
     @PostMapping
-    public void createNewReport(@RequestBody ReportCreateRequest reportCreateRequest) {reportService.createNewReport(reportCreateRequest);}
+    public Report createNewReport(@RequestBody ReportCreateRequest reportCreateRequest) {
+        return reportService.createNewReport(reportCreateRequest);
+    }
 
     @PutMapping(path = "{reportId}")
     public void updateReport(
