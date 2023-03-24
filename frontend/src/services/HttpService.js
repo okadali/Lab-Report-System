@@ -21,13 +21,22 @@ export const DeleteWithoutAuth = (url,id) => {
 }
 
 export const PostWithoutAuth = (url,body) => {
-    var request = fetch(url, {
+    let request = fetch(url, {
         method: "POST",
         headers: {
             "Content-Type":"application/json"
         },
         body: JSON.stringify(body)
     })
+    return request
+}
 
+export const PutWithoutAuth = (url) => {
+    let request = fetch(url, {
+        method: "PUT",
+        headers: {
+            "Content-Type":"application/json"
+        },
+    })
     return request
 }

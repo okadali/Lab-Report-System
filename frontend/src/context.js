@@ -4,6 +4,7 @@ const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
     const [reportList, setReportList] = useState([]);
+    const [editableReportId,setEditableReportId] = useState();
     const [laboratorianList, setLaboratorianList] = useState([]);
     const [refresh,setRefresh] = useState(false);
     
@@ -12,6 +13,8 @@ const AppProvider = ({ children }) => {
         value={{
             reportList,
             setReportList,
+            editableReportId,
+            setEditableReportId,
             laboratorianList,
             setLaboratorianList,
             refresh,

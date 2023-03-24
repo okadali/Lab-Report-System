@@ -1,7 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { PostWithoutAuth } from "../services/HttpService";
+import { useGlobalContext } from "../context";
 
 export default function ReportInput() {
+    const {setRefresh} = useGlobalContext();
     const [reportData,setReportData] = useState({
         id: "",
         name: "",
@@ -17,26 +19,19 @@ export default function ReportInput() {
             ...reportData,
             [e.target.name]:e.target.value
         })
-        console.log(reportData);
     }
-
-    const handleCreateReport = () => { 
-        try {
-            PostWithoutAuth("/reports",reportData)
-        } catch(e) {
-            
-        }
+    const handleCreateReport = () => {
+        PostWithoutAuth("/reports",reportData)
+        setRefresh(true)
     }
-
-    
 
     return <div className="reportInputs">
-        <input type="number" min={0} placeholder='ID' value={reportData["id"]} name={"id"} onChange={handleInputChange}/>
-        <input type="text" placeholder='Name' name={"name"} onChange={handleInputChange}/>
-        <input type="text" placeholder='Surname' name={"surname"} onChange={handleInputChange} />
+        <input type="number" min={0}  placeholder='ID' name={"id"} onChange={handleInputChange}/>
+        <input type="text" placeholder='Name' maxLength={10} name={"name"} onChange={handleInputChange}/>
+        <input type="text" placeholder='Surname' name={"surname"} maxLength={10} onChange={handleInputChange}/>
         <input type="number" minLength={11} maxLength={11} placeholder={'T. C. ID Number'} name={"tcId"} onChange={handleInputChange}/>
         <input type="number" placeholder='Laboratorian ID' name={"laboratorianId"} onChange={handleInputChange}/>
-        <input type="text" placeholder='Diagnosis Title' name={"diagnosisTitle"} onChange={handleInputChange}/>
+        <input type="text" placeholder='Diagnosis Title' maxLength={15} name={"diagnosisTitle"} onChange={handleInputChange}/>
         <textarea maxLength={200} placeholder='Diagnosis Description' name={"diagnosisDetail"} onChange={handleInputChange}/>
         <input type="date" name={"dob"} onChange={handleInputChange}/>
         <button onClick={handleCreateReport}>Create a Report</button>
