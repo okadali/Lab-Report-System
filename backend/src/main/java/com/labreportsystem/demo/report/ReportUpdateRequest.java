@@ -1,20 +1,16 @@
 package com.labreportsystem.demo.report;
 
-
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 
 @Data
-public class ReportCreateRequest {
-    private Long id;
+public class ReportUpdateRequest {
     private String name;
     private String surname;
     private Long tcId;
     private String diagnosisTitle;
     private String diagnosisDetail;
     private LocalDate dob;
-    private Long laboratorianId;
     private String image;
 }

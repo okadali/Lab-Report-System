@@ -27,4 +27,6 @@ public class Report {
     @JoinColumn(name="laboratorian_id", nullable=false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Laboratorian laboratorian;
+
+    private String image;
 }

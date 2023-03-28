@@ -28,15 +28,16 @@ export const PostWithoutAuth = (url,body) => {
         },
         body: JSON.stringify(body)
     })
-    return request
+    return request;
 }
 
-export const PutWithoutAuth = (url) => {
+export const PutWithoutAuth = (url,body) => {
     let request = fetch(url, {
         method: "PUT",
         headers: {
             "Content-Type":"application/json"
         },
+        body: JSON.stringify(body)
     })
-    return request
+    return request;
 }

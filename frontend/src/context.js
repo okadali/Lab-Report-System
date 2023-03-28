@@ -18,7 +18,7 @@ const AppProvider = ({ children }) => {
             laboratorianList,
             setLaboratorianList,
             refresh,
-            setRefresh
+            setRefresh,
         }}
       >
         {children}

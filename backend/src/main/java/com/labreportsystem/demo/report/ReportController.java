@@ -24,16 +24,8 @@ public class ReportController {
     }
 
     @PutMapping(path = "{reportId}")
-    public void updateReport(
-            @PathVariable("reportId") Long reportId,
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) String surname,
-            @RequestParam(required = false) Long tcId,
-            @RequestParam(required = false) String diagnosisTitle,
-            @RequestParam(required = false) String diagnosisDetail,
-            @RequestParam(required = false) LocalDate dob
-    ) {
-        reportService.updateReport(reportId,name,surname,tcId,diagnosisTitle,diagnosisDetail,dob);
+    public void updateReportImage(@PathVariable("reportId") Long reportId,@RequestBody ReportUpdateRequest reportUpdateRequest) {
+        reportService.updateReport(reportId,reportUpdateRequest);
     }
 
     @DeleteMapping(path = "{reportId}")

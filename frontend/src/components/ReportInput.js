@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { PostWithoutAuth } from "../services/HttpService";
 import { useGlobalContext } from "../context";
+import convertBase64 from "../functions/globalFunctions";
+
 
 export default function ReportInput() {
     const {setRefresh} = useGlobalContext();
@@ -12,18 +14,30 @@ export default function ReportInput() {
         diagnosisTitle: "",
         diagnosisDetail: "",
         dob: "",
-        laboratorianId: ""
+        laboratorianId: "",
+        image: ""
     });
     const handleInputChange = (e) => {
         setReportData({
             ...reportData,
             [e.target.name]:e.target.value
         })
+        console.log(reportData);
+    }
+    const handleFileInputChange = async (e) => {
+        const file = e.target.files[0];
+        const base64 = await convertBase64(file);
+        setReportData({
+            ...reportData,
+            "image":base64
+        })
     }
     const handleCreateReport = () => {
         PostWithoutAuth("/reports",reportData)
         setRefresh(true)
     }
+
+    
 
     return <div className="reportInputs">
         <input type="number" min={0}  placeholder='ID' name={"id"} onChange={handleInputChange}/>
@@ -34,7 +48,9 @@ export default function ReportInput() {
         <input type="text" placeholder='Diagnosis Title' maxLength={15} name={"diagnosisTitle"} onChange={handleInputChange}/>
         <textarea maxLength={200} placeholder='Diagnosis Description' name={"diagnosisDetail"} onChange={handleInputChange}/>
         <input type="date" name={"dob"} onChange={handleInputChange}/>
-        <button onClick={handleCreateReport}>Create a Report</button>
+        <input type="file" accept="image/png, image/jpeg" onChange={handleFileInputChange}  />
+        <button type="submit" onClick={handleCreateReport}>Create a Report</button>
+        
     </div>
 } 
 

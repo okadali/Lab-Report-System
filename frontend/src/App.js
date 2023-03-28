@@ -29,6 +29,7 @@ function App() {
     });
     GetWithoutAuth("/laboratorians").then((result) => {
       setLaboratorianList(result);
+      
     });
     setRefresh(false);
   };
@@ -39,43 +40,36 @@ function App() {
   }, [refresh]);
 
   const rowStyle = { display: "flex", flexDirection: "row" };
-  
+
   return (
     <div className="App">
       <div className="wrapper">
         <div style={rowStyle}>
           <div className="content">
             <div className="listDiv reportListDiv">
-
-              <ReportBar/>
-              <div style={{height:"45px"}}/>
+              <ReportBar />
+              <div style={{ height: "45px" }} />
 
               {reportList.map((report) => {
+                return <Report report={report} key={report.id} />;
+              })}
+            </div>
+
+            <div className="listDiv laboratorianListDiv" style={{ marginTop: "0px" }}>
+              {laboratorianList.map((laboratorian) => {
                 return (
-                  <Report
-                    report={report}
-                    key={report.id}
+                  <Laboratorian
+                    laboratorian={laboratorian}
+                    key={laboratorian.id}
                   />
                 );
               })}
-
             </div>
           </div>
           <div>
             <ReportInput />
             <LaboratorianInput />
           </div>
-        </div>
-
-        <div
-          className="listDiv laboratorianListDiv"
-          style={{ marginTop: "0px" }}
-        >
-          {laboratorianList.map((laboratorian) => {
-            return (
-              <Laboratorian laboratorian={laboratorian} key={laboratorian.id} />
-            );
-          })}
         </div>
       </div>
     </div>
