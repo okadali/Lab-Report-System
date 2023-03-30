@@ -11,5 +11,7 @@
    - Then open cmd, get into the `backend/` file and type `mvn spring-boot:run` for this command `maven` have to installed
  
  - Last Steps
-   - After spring boot started to running open up another cmd, get into the `frontend/` type `npm start` for this command `node.js` have to installed
+   - After spring boot started to running open up another cmd, get into the `frontend/`
+   -if it's your first time running the project type `npm install` for this command `node.js` have to installed
+   -if it's not type `npm start` for this command `node.js` have to installed
    - Enjoy!
