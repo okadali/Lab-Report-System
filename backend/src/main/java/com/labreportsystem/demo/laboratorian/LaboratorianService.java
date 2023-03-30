@@ -21,6 +21,12 @@ public class LaboratorianService {
         if(exists) {
             throw new IllegalStateException("laboratorian id "+laboratorian.getId()+" is already exists");
         }
+
+        if(laboratorian.getId() != null) {
+            if(laboratorian.getId().toString().length() != 7) {
+                throw new IllegalStateException("invalid laboratorian id");
+            }
+        }
         laboratorianRepository.save(laboratorian);
     }
 }

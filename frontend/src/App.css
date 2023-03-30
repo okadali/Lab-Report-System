@@ -70,8 +70,10 @@
 
 
 
+
+
 .reportBar {
-    position: fixed;
+    position: absolute;
     height: 45px;
     width: var(--reportScreenWith);
     border-radius: 10px 10px 0px 0px;
@@ -109,6 +111,21 @@
     margin-top: 30px;
 }
 
+
+.errorDiv{
+    border: 1px solid black;
+    margin: 5px;
+    width: 188px;
+    height: 125px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+}
+.errorDiv span {
+    color: red;
+}
 
 
 

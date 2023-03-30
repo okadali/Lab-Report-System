@@ -5,7 +5,7 @@ import convertBase64 from "../functions/globalFunctions";
 
 
 export default function ReportInput() {
-    const {setRefresh} = useGlobalContext();
+    const {setRefresh,setError,constReportList,laboratorianList} = useGlobalContext();
     const [reportData,setReportData] = useState({
         id: "",
         name: "",
@@ -22,7 +22,6 @@ export default function ReportInput() {
             ...reportData,
             [e.target.name]:e.target.value
         })
-        console.log(reportData);
     }
     const handleFileInputChange = async (e) => {
         const file = e.target.files[0];
@@ -33,24 +32,45 @@ export default function ReportInput() {
         })
     }
     const handleCreateReport = () => {
-        PostWithoutAuth("/reports",reportData)
-        setRefresh(true)
+        let errorBool = true;
+        setError("");
+        
+        if(reportData.tcId.length !== 11) {setError("invalid tc id");errorBool=false;}
+
+        if(reportData.id === "") {setError("id cannot be empty");errorBool=false;}
+        else {
+            constReportList.forEach(report => {
+                if(report.id == reportData.id)  {setError("id already used");errorBool=false;}
+            });
+        }
+
+        if(reportData.laboratorianId === "") {setError("lab. id cannot be empty");errorBool=false;}
+        else {
+            let isExists = false;
+            laboratorianList.forEach(laboratorian => {
+                if(laboratorian.id == reportData.laboratorianId) {isExists = true;}
+            })
+            if(!isExists) {setError("lab. id does not exists");errorBool=false;}
+        }
+
+        if(errorBool) {
+            PostWithoutAuth("/reports",reportData)
+            setRefresh(true)
+        }
     }
 
     
-
     return <div className="reportInputs">
         <input type="number" min={0}  placeholder='ID' name={"id"} onChange={handleInputChange}/>
         <input type="text" placeholder='Name' maxLength={10} name={"name"} onChange={handleInputChange}/>
         <input type="text" placeholder='Surname' name={"surname"} maxLength={10} onChange={handleInputChange}/>
-        <input type="number" minLength={11} maxLength={11} placeholder={'T. C. ID Number'} name={"tcId"} onChange={handleInputChange}/>
-        <input type="number" placeholder='Laboratorian ID' name={"laboratorianId"} onChange={handleInputChange}/>
+        <input type="number"  placeholder={'T. C. ID Number (11 digit)'} name={"tcId"} onChange={handleInputChange}/>
+        <input type="number" placeholder='Laboratorian ID (7 digit)' name={"laboratorianId"} onChange={handleInputChange}/>
         <input type="text" placeholder='Diagnosis Title' maxLength={15} name={"diagnosisTitle"} onChange={handleInputChange}/>
         <textarea maxLength={200} placeholder='Diagnosis Description' name={"diagnosisDetail"} onChange={handleInputChange}/>
         <input type="date" name={"dob"} onChange={handleInputChange}/>
         <input type="file" accept="image/png, image/jpeg" onChange={handleFileInputChange}  />
         <button type="submit" onClick={handleCreateReport}>Create a Report</button>
-        
     </div>
 } 
 

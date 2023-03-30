@@ -11,12 +11,14 @@ import ReportBar from "./components/ReportBar";
 function App() {
   const isInitialMount = useRef(true);
   const {
+    setConstReportList,
     refresh,
     setRefresh,
     reportList,
     setReportList,
     laboratorianList,
     setLaboratorianList,
+    error
   } = useGlobalContext();
 
   useEffect(() => {
@@ -25,6 +27,7 @@ function App() {
 
   const refreshReports = () => {
     GetWithoutAuth("/reports").then((result) => {
+      setConstReportList(result);
       setReportList(result);
     });
     GetWithoutAuth("/laboratorians").then((result) => {
@@ -69,6 +72,9 @@ function App() {
           <div>
             <ReportInput />
             <LaboratorianInput />
+            <div className="errorDiv">
+              <span>{error}</span>
+            </div>
           </div>
         </div>
       </div>

@@ -39,10 +39,11 @@ public class ReportService {
             throw new IllegalStateException("report id "+reportCreateRequest.getId()+" already exists");
         }
 
-
+        if(reportCreateRequest.getTcId().toString().length() != 11) {
+            throw new IllegalStateException("invalid tc id");
+        }
 
         Report toSave = new Report();
-
 
         toSave.setImage(reportCreateRequest.getImage());
         toSave.setId(reportCreateRequest.getId());
@@ -73,7 +74,12 @@ public class ReportService {
         if(report.getTcId() != reportUpdateRequest.getTcId()) report.setTcId(reportUpdateRequest.getTcId());
         if(!report.getDiagnosisTitle().equals(reportUpdateRequest.getDiagnosisTitle())) report.setDiagnosisTitle(reportUpdateRequest.getDiagnosisTitle());
         if(!report.getDiagnosisDetail().equals(reportUpdateRequest.getDiagnosisDetail())) report.setDiagnosisDetail(reportUpdateRequest.getDiagnosisDetail());
-        if(!report.toString().equals(reportUpdateRequest.getDob().toString())) report.setDob(reportUpdateRequest.getDob());
+        if(reportUpdateRequest.getDob() != null) {
+            if(report.getDob() != null) {
+                if(!report.getDob().toString().equals(reportUpdateRequest.getDob())) report.setDob(reportUpdateRequest.getDob());
+            }
+            else report.setDob(reportUpdateRequest.getDob());
+        }
         if(!report.getImage().equals(reportUpdateRequest.getImage())) report.setImage(reportUpdateRequest.getImage());
     }
 }

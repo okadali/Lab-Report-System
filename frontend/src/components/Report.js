@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useGlobalContext } from "../context";
-import { DeleteWithoutAuth, PostWithoutAuth, PutWithoutAuth } from "../services/HttpService";
+import { DeleteWithoutAuth,PutWithoutAuth } from "../services/HttpService";
 import convertBase64 from "../functions/globalFunctions";
 import deleteLogo from "../assets/delete.png"
 import editLogo from "../assets/edit.png"
 
 
 export default function Report({ report }) {
-  const {setRefresh, editableReportId, setEditableReportId} = useGlobalContext();
+  const {setRefresh, editableReportId, setEditableReportId,setError} = useGlobalContext();
   const [editData,setEditData] = useState({
     name: "",
     surname: "",
@@ -31,14 +31,15 @@ export default function Report({ report }) {
       setEditableReportId(report.id);
       setEditData({
         ...editData,
-        name : report.name,
-        surname : report.surname,
-        tcId : report.tcId,
-        diagnosisTitle : report.diagnosisTitle,
-        diagnosisDetail : report.diagnosisDetail,
-        dob : report.dob,
-        image:report.image
+        name : report.name ?? "",
+        surname : report.surname ?? "",
+        tcId : report.tcId ?? "",
+        diagnosisTitle : report.diagnosisTitle ?? "",
+        diagnosisDetail : report.diagnosisDetail ?? "",
+        dob : report.dob ?? "",
+        image:report.image ?? ""
       })
+      
     }
   }
   const handleInputChange = (e) => {
@@ -56,8 +57,6 @@ export default function Report({ report }) {
     });  
   }
   const onChangeClick = async () => {
-    // PostWithoutAuth("/reports/"+report.id,reportImageUpdate)
-    // PutWithoutAuth(`/reports/${report.id}?name=${editData.name}&surname=${editData.surname}&tcId=${editData.tcId}&diagnosisTitle=${editData.diagnosisTitle}&diagnosisDetail=${editData.diagnosisDetail}&dob=${editData.dob}`)
     PutWithoutAuth("/reports/"+report.id,editData);
     setRefresh(true);
     setEditableReportId();
@@ -82,10 +81,10 @@ export default function Report({ report }) {
 
     {editableReportId === report.id &&
     <div className="editDiv">
-      <input type="text" name="name" style={{width:"90px",marginLeft:"60px"}} value={editData.name} onChange={handleInputChange}/>
-      <input type="text" name="surname" style={{width:"80px",marginLeft:"15px"}} value={editData.surname} onChange={handleInputChange}/>
+      <input type="text" name="name" maxLength={10} style={{width:"90px",marginLeft:"60px"}} value={editData.name} onChange={handleInputChange}/>
+      <input type="text" name="surname" maxLength={10} style={{width:"80px",marginLeft:"15px"}} value={editData.surname} onChange={handleInputChange}/>
       <input type="text" name="tcId" style={{width:"90px",marginLeft:"10px"}} value={editData.tcId} onChange={handleInputChange}/>
-      <input type="text" name="diagnosisTitle" style={{width:"90px",marginLeft:"20px"}} value={editData.diagnosisTitle} onChange={handleInputChange}/>
+      <input type="text" name="diagnosisTitle" maxLength={15} style={{width:"90px",marginLeft:"20px"}} value={editData.diagnosisTitle} onChange={handleInputChange}/>
       <textarea maxLength={200} name="diagnosisDetail" style={{maxWidth:"100px",marginLeft:"15px"}} value={editData.diagnosisDetail} onChange={handleInputChange}/>
       <input type="date" name="dob" style={{width:"90px",marginLeft:"15px"}} value={editData.dob} onChange={handleInputChange}/>
       <input type="file" accept="image/png, image/jpeg" onChange={handleFileInputChange}/>

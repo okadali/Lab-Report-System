@@ -3,14 +3,18 @@ import React, {useState, useContext, useEffect} from "react";
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
+    const [constReportList,setConstReportList] = useState([]);
     const [reportList, setReportList] = useState([]);
     const [editableReportId,setEditableReportId] = useState();
     const [laboratorianList, setLaboratorianList] = useState([]);
     const [refresh,setRefresh] = useState(false);
+    const [error,setError] = useState("");
     
     return (
       <AppContext.Provider
         value={{
+            constReportList,
+            setConstReportList,
             reportList,
             setReportList,
             editableReportId,
@@ -19,6 +23,8 @@ const AppProvider = ({ children }) => {
             setLaboratorianList,
             refresh,
             setRefresh,
+            error,
+            setError
         }}
       >
         {children}

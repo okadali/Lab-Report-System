@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useGlobalContext } from "../context";
 
 export default function ReportBar() {
-    const {setRefresh,reportList,setReportList} = useGlobalContext();
+    const {setRefresh,reportList,setReportList,constReportList} = useGlobalContext();
     const [searchInput,setSearchInput] = useState("");
 
     const onSearchInputChange = (e) => {
@@ -26,10 +26,10 @@ export default function ReportBar() {
           setRefresh(true);
         } else {
           setReportList(
-            reportList.filter((item) => {
+            constReportList.filter((item) => {
               if (item.name.includes(searchInput)) return true;
               if (item.surname.includes(searchInput)) return true;
-              if (item.tcId == searchInput) return true;
+              if (item.tcId.toString().includes(searchInput)) return true;
               if (item.laboratorian.name.includes(searchInput)) return true;
               if (item.laboratorian.surname.includes(searchInput)) return true;
             })
@@ -45,13 +45,12 @@ export default function ReportBar() {
         <div style={{width:"120px"}}><span>TC</span></div>                      
         <div style={{width:"120px"}}><span>D. Title</span></div>                        
         <div style={{width:"120px"}}><span>D. Detail</span></div>                       
-        <div className="barDobDiv" style={{width:"120px"}} onClick={onDobClick}><span>Date of Birth</span></div>                        
+        <div className="barDobDiv" style={{width:"120px"}} onClick={onDobClick}><span>Given Date</span></div>                        
         <div style={{width:"70px"}}><span>R. Photo</span></div>                     
         <div style={{width:"70px"}}><span>L. ID</span></div>                        
         <div style={{width:"120px"}}><span>L. Name</span></div>                     
         <div style={{width:"100px"}}><span>L. Surname</span></div>                      
 
         <input type="text" placeholder="search..." style={{width:"120px"}} value={searchInput} onChange={onSearchInputChange} onKeyDown={onEnterKeyDown}/>
-        
     </div>
 }
