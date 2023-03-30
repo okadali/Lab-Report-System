@@ -5,11 +5,7 @@ import com.labreportsystem.demo.laboratorian.LaboratorianRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -76,7 +72,7 @@ public class ReportService {
         if(!report.getDiagnosisDetail().equals(reportUpdateRequest.getDiagnosisDetail())) report.setDiagnosisDetail(reportUpdateRequest.getDiagnosisDetail());
         if(reportUpdateRequest.getDob() != null) {
             if(report.getDob() != null) {
-                if(!report.getDob().toString().equals(reportUpdateRequest.getDob())) report.setDob(reportUpdateRequest.getDob());
+                if(!report.getDob().toString().equals(reportUpdateRequest.getDob().toString())) report.setDob(reportUpdateRequest.getDob());
             }
             else report.setDob(reportUpdateRequest.getDob());
         }

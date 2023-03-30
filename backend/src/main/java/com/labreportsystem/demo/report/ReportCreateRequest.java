@@ -2,7 +2,6 @@ package com.labreportsystem.demo.report;
 
 
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 
